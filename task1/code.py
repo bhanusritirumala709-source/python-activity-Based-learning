@@ -1,4 +1,4 @@
-classrooms = [
+classrooms = ]
     [1,0,2,0,1],  #Room1: 0=vacant, 1=student, 2=reserved
     [2,1,1,0,0],  #Room2
     [1,1,0,2,0]   #Room3
