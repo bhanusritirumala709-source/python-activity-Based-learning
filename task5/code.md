@@ -1,97 +1,89 @@
 ## Problem Statement
-Given entry hour, exit hour (0-23) and vehicle type.
-- If entry or exit invalid (not in 0-23), print Invalid
-- Rates: 2W -> 20, 4W -> 40, others -> 60 per hour
-- If exit < entry, it is overnight: hours = (24-entry)+exit, overnight charge = 100
-- Else hours = exit-entry, overnight = 0
-- fee = hours*rate + overnight
-- If fee > 500, cap fee to 500
-Print hours and fee.
+Given capacity, initial level, threshold and number of days.
+For each day read inflow and outflow.
+Update level = level + inflow - outflow.
+- If level > capacity, print Day d Overflow and set level = capacity
+- If level < 0, print Day d Shortage and set level = 0
+- Track first day when level >= threshold
+Finally print final level and first day (or -1 if never reached).
 
 ## Algorithm
 1. START
-2. Read entry, exit_, vtype
-3. IF entry < 0 OR entry > 23 OR exit_ < 0 OR exit_ > 23 THEN
-4.   Print Invalid
-5. ELSE
-6.   IF vtype == 2W THEN rate = 20
-7.   ELSE IF vtype == 4W THEN rate = 40
-8.   ELSE rate = 60
-9.   IF exit_ < entry THEN
-10.    hours = (24 - entry) + exit_
-11.    overnight = 100
-12.  ELSE
-13.    hours = exit_ - entry
-14.    overnight = 0
-15.  fee = hours * rate + overnight
-16.  IF fee > 500 THEN fee = 500
-17.  Print hours
-18.  Print fee
-19. END
+2. Read capacity, level, threshold, days
+3. Set first = -1
+4. Loop d from 1 to days
+5.   Read inflow, outflow
+6.   level = level + inflow - outflow
+7.   IF level > capacity THEN Print Day d Overflow, level = capacity
+8.   IF level < 0 THEN Print Day d Shortage, level = 0
+9.   IF level >= threshold AND first == -1 THEN first = d
+10. End Loop
+11. Print level
+12. Print first
+13. END
 
 ## Flowchart
 ```mermaid
 flowchart TD
-    A[Start] --> B[Read entry exit vtype]
-    B --> C{Is entry or exit invalid}
-    C -- Yes --> D[Print Invalid]
-    C -- No --> E{Check vtype}
-    E -- 2W --> F[rate 20]
-    E -- 4W --> G[rate 40]
-    E -- other --> H[rate 60]
-    F --> I{Is exit less than entry}
-    G --> I
-    H --> I
-    I -- Yes --> J[hours 24 minus entry plus exit overnight 100]
-    I -- No --> K[hours exit minus entry overnight 0]
-    J --> L[fee hours times rate plus overnight]
+    A[Start] --> B[Read capacity level threshold days first minus1]
+    B --> C[Loop day 1 to days]
+    C --> D[Read inflow outflow]
+    D --> E[level equal level plus inflow minus outflow]
+    E --> F{Is level greater than capacity}
+    F -- Yes --> G[Print Day d Overflow set level capacity]
+    F -- No --> H{Is level less than 0}
+    G --> H
+    H -- Yes --> I[Print Day d Shortage set level 0]
+    H -- No --> J{Is level greater than threshold and first minus1}
+    I --> J
+    J -- Yes --> K[first equal d]
+    J -- No --> L{More days}
     K --> L
-    L --> M{Is fee greater than 500}
-    M -- Yes --> N[fee equal 500]
-    M -- No --> O[Keep fee]
-    N --> P[Print hours fee]
-    O --> P
-    D --> Q[End]
-    P --> Q
+    L -- Yes --> C
+    L -- No --> M[Print final level and first]
+    M --> N[End]
 ```
 
 ## Sample Input and Output
 
 **Input 1:**
 ```
-9
-15
-4W
+100
+50
+80
+3
+30
+10
+20
+5
+10
+60
 ```
 
 **Output 1:**
 ```
-6
-240
+Day 3 Overflow
+100
+2
 ```
 
 **Input 2:**
 ```
-22
-3
-2W
+50
+10
+30
+2
+5
+5
+10
+20
 ```
 
 **Output 2:**
 ```
-5
-200
+Day 2 Shortage
+0
+-1
 ```
-
-**Input 3:**
-```
-25
-10
-2W
-```
-
-**Output 3:**
-```
-Invalid
-```
+ 
 
