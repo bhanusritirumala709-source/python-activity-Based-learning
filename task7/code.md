@@ -1,89 +1,84 @@
 ## Problem Statement
-Given n subjects and m scores per subject (matrix).
-For each subject row:
-- improvement = last score - first score, print it
-- If all scores in row < 40, print Sub i Weak
-Calculate overall average = average of all row averages.
-- avg >=75 -> Distinction
-- avg >=60 -> First
-- avg >=40 -> Pass
-- else Fail
+Given distance, fuel price, and number of vehicles v.
+For each vehicle read mileage, tank capacity, reserve.
+Calculate:
+- fuel = dist / mileage
+- need = fuel + reserve
+- cost = fuel * price
+- feasible = need <= tank
+Print fuel, cost, feasible for each.
+Find vehicle with minimum cost among feasible ones, print its index, else -1.
 
 ## Algorithm
 1. START
-2. Read n, m
-3. Read matrix scores of size n x m
-4. Loop i from 0 to n-1
-5.   imp = scores[i][m-1] - scores[i][0], Print imp
-6.   Set weak = True
-7.   For each score s in scores[i]
-8.     IF s >= 40 THEN weak = False
-9.   IF weak == True THEN Print Sub i Weak
-10. End Loop
-11. avg = average of all scores
-12. IF avg >= 75 THEN Print Distinction
-13. ELSE IF avg >= 60 THEN Print First
-14. ELSE IF avg >= 40 THEN Print Pass
-15. ELSE Print Fail
-16. END
+2. Read dist, price, v
+3. Set min_cost = large value, min_idx = -1
+4. Loop i from 0 to v-1
+5.   Read mileage, tank, reserve
+6.   fuel = dist / mileage
+7.   need = fuel + reserve
+8.   cost = fuel * price
+9.   feasible = need <= tank
+10.  Print fuel, cost, feasible
+11.  IF feasible AND cost < min_cost THEN min_cost = cost, min_idx = i
+12. End Loop
+13. Print min_idx
+14. END
 
 ## Flowchart
 ```mermaid
 flowchart TD
-    A[Start] --> B[Read n m and scores matrix]
-    B --> C[Loop i from 0 to n minus 1]
-    C --> D[imp equal last minus first Print imp]
-    D --> E[Set weak True]
-    E --> F[Check each s in row]
-    F --> G{Is s greater than or equal to 40}
-    G -- Yes --> H[weak False]
-    G -- No --> I{More scores}
-    H --> I
-    I -- Yes --> F
-    I -- No --> J{Is weak True}
-    J -- Yes --> K[Print Sub i Weak]
-    J -- No --> L{More subjects}
+    A[Start] --> B[Read dist price v set min_cost large min_idx minus1]
+    B --> C[Loop i from 0 to v minus 1]
+    C --> D[Read mileage tank reserve]
+    D --> E[fuel equal dist divided by mileage]
+    E --> F[need equal fuel plus reserve]
+    F --> G[cost equal fuel times price]
+    G --> H[feasible equal need less than or equal to tank]
+    H --> I[Print fuel cost feasible]
+    I --> J{Is feasible and cost less than min_cost}
+    J -- Yes --> K[Update min_cost and min_idx]
+    J -- No --> L{More vehicles}
     K --> L
     L -- Yes --> C
-    L -- No --> M[Calculate avg]
-    M --> N{Check avg range}
-    N -- greater than 75 --> O[Print Distinction]
-    N -- greater than 60 --> P[Print First]
-    N -- greater than 40 --> Q[Print Pass]
-    N -- else --> R[Print Fail]
-    O --> S[End]
-    P --> S
-    Q --> S
-    R --> S
+    L -- No --> M[Print min_idx]
+    M --> N[End]
 ```
 
 ## Sample Input and Output
 
 **Input 1:**
 ```
+100
+100
 2
-3
-70 80 90
-30 20 35
+50
+10
+2
+25
+10
+1
 ```
 
 **Output 1:**
 ```
-20
-5
-Sub1 Weak
-Fail
+2.00 200.00 True
+4.00 400.00 True
+0
 ```
 
 **Input 2:**
 ```
+200
+90
 1
-4
-60 70 80 90
+10
+15
+10
 ```
 
 **Output 2:**
 ```
-30
-First
+20.00 1800.00 False
+-1
 ```
