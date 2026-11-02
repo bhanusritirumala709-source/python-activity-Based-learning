@@ -1,50 +1,98 @@
-**Problem:** Sum basket, apply discount if >=thresh, check budget.
+## Problem Statement
+Given budget, number of items n, for each item price and quantity.
+Calculate total = sum(price * qty).
+Read threshold and discount percentage.
+If total >= threshold, apply discount: total = total - total*disc_per/100.
+Print total, then check budget:
+- If total <= budget -> Within Budget
+- Else Over Budget and print extra amount needed.
 
-**Algorithm:** 1.Read budget n 2.Sum price*qty 3.If total>=thresh discount 4.Check budget
+## Algorithm
+1. START
+2. Read budget, n
+3. Set total = 0
+4. Loop n times
+5.   Read price, qty
+6.   total = total + price * qty
+7. End Loop
+8. Read thresh, disc_per
+9. IF total >= thresh THEN total = total - total*disc_per/100
+10. Print total as int
+11. IF total <= budget THEN Print Within Budget
+12. ELSE Print Over Budget and Print total-budget
+13. END
 
-**Flowchart:**
+## Flowchart
 ```mermaid
 flowchart TD
-    A[Start]-->B[Read budget n total=0 i=0]
-    B-->C{i<n}
-    C--Yes-->D[Read price qty]
-    D-->E[total+=price*qty i++]
-    E-->C
-    C--No-->F[Read thresh disc]
-    F-->G{total>=thresh}
-    G--Yes-->H[total=total-discount]
-    G--No-->I{total<=budget}
-    H-->I
-    I--Yes-->J[Within]
-    I--No-->K[Over]
-    J-->L[End]
-    K-->L
+    A[Start] --> B[Read budget n set total 0]
+    B --> C[Loop n items]
+    C --> D[Read price qty]
+    D --> E[total equal total plus price times qty]
+    E --> F{More items}
+    F -- Yes --> C
+    F -- No --> G[Read thresh disc_per]
+    G --> H{Is total greater than or equal to thresh}
+    H -- Yes --> I[Apply discount]
+    H -- No --> J[Print total]
+    I --> J
+    J --> K{Is total less than or equal to budget}
+    K -- Yes --> L[Print Within Budget]
+    K -- No --> M[Print Over Budget and extra]
+    L --> N[End]
+    M --> N
 ```
-Sample Input 1 (Within):
-5000
-2
+
+## Sample Input and Output
+
+**Input 1:**
+```
 1000
 2
-500
+100
+2
+200
 3
-3000
+500
 10
+```
 
-Sample Output 1:
-3150
+**Output 1:**
+```
+720
 Within Budget
+```
 
-Sample Input 2 (Over):
-2000
-2
-1000
-2
+**Input 2:**
+```
 500
-3
-3000
-10
+1
+300
+2
+400
+20
+```
 
-Sample Output 2:
-3150
+**Output 2:**
+```
+480
+Within Budget
+```
+
+**Input 3:**
+```
+400
+1
+300
+2
+400
+20
+```
+
+**Output 3:**
+```
+480
 Over Budget
-1150
+80
+```
+
