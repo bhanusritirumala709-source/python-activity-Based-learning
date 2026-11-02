@@ -1,11 +1,11 @@
- Problem Statement
+## Problem Statement
 Given total classes, attended classes and threshold percentage.
 Calculate current attendance = attended / total * 100.
 If current >= threshold, required extra classes = 0.
 Else required = ceil((threshold/100*total - attended) / (1 - threshold/100))
 Print current percentage with 2 decimals and required classes.
 
- Algorithm
+## Algorithm
 1. START
 2. Read total, attended, threshold
 3. current = attended / total * 100
@@ -15,7 +15,7 @@ Print current percentage with 2 decimals and required classes.
 7. Print req
 8. END
 
- Flowchart
+## Flowchart
 ```mermaid
 flowchart TD
     A[Start] --> B[Read total attended threshold]
@@ -28,29 +28,29 @@ flowchart TD
     G --> H[End]
 ```
 
- Sample input and output 
+## Sample Input and Output
 
-Input 1:
+**Input 1:**
 ```
 100
 75
 75
 ```
 
-Output 1:
+**Output 1:**
 ```
 75.00
 0
 ```
 
-Input 2:
+**Input 2:**
 ```
 100
 60
 75
 ```
 
-Output 2:
+**Output 2:**
 ```
 60.00
 60
