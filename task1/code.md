@@ -1,49 +1,57 @@
-**Problem:** Fine by offence type, double if repeat, disqualify if >=3 or drunk.
+ Problem Statement
+Given total classes, attended classes and threshold percentage.
+Calculate current attendance = attended / total * 100.
+If current >= threshold, required extra classes = 0.
+Else required = ceil((threshold/100*total - attended) / (1 - threshold/100))
+Print current percentage with 2 decimals and required classes.
 
-**Algorithm:** 1.Read v 2.Get base fine 3.If rep Y double 4.Sum 5.Check disq
+ Algorithm
+1. START
+2. Read total, attended, threshold
+3. current = attended / total * 100
+4. IF current >= threshold THEN req = 0
+5. ELSE req = ceil((threshold/100*total - attended) / (1 - threshold/100))
+6. Print current with 2 decimals
+7. Print req
+8. END
 
-**Flowchart:**
+ Flowchart
 ```mermaid
 flowchart TD
-    A[Start]-->B[Read v total=0 disq=False i=0]
-    B-->C{i<v}
-    C--Yes-->D[Read cat off rep]
-    D-->E[Get base fine]
-    E-->F{rep==Y}
-    F--Yes-->G[fine=fine*2]
-    F--No-->H[total+=fine]
-    G-->H
-    H-->I[Check disq]
-    I-->J[i++]
-    J-->C
-    C--No-->K[Print total disq]
-    K-->L[End]
+    A[Start] --> B[Read total attended threshold]
+    B --> C[current equal attended divided by total times 100]
+    C --> D{Is current greater than or equal to threshold}
+    D -- Yes --> E[req equal 0]
+    D -- No --> F[req equal ceil formula]
+    E --> G[Print current and req]
+    F --> G
+    G --> H[End]
 ```
-Sample Input 1:
-2
-4W
-speed
-N
-2W
-signal
-Y
 
-Sample Output 1:
-4000
-False
+ Sample input and output 
 
-Sample Input 2 (Disqualify):
-3
-4W
-drunk
-N
-2W
-speed
-Y
-4W
-signal
-N
+Input 1:
+```
+100
+75
+75
+```
 
-Sample Output 2:
-8500
-True
+Output 1:
+```
+75.00
+0
+```
+
+Input 2:
+```
+100
+60
+75
+```
+
+Output 2:
+```
+60.00
+60
+```
