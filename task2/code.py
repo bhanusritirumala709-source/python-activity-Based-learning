@@ -1,17 +1,24 @@
-marks = [
-    [80,70,90],
-    [60,50,40],
-    [90,95,85]
-]
-row_avg = []
-for r in marks:
-    row_avg.append(sum(r)/len(r))
-col_avg = []
-for c in zip(*marks):
-    col_avg.append(sum(c)/len(marks))
-top_student = row_avg.index(max(row_avg))
-low_subject = col_avg.index(min(col_avg))
-print("Row-wise Avg:", row_avg)
-print("Col-wise Avg:", col_avg)
-print("Top Performer Row:", top_student)
-print("Low Avg Subject Col:", low_subject)
+bal=int(input())
+limit=int(input())
+n=int(input())
+success=0
+failed=0
+for _ in range(n):
+    t=input().split()
+    typ=t[0]
+    amt=int(t[1])
+    if amt<=0:
+        failed+=1
+        continue
+    if typ=="D":
+        bal+=amt
+        success+=1
+    elif typ=="W":
+        if amt>limit or amt>bal:
+            failed+=1
+        else:
+            bal-=amt
+            success+=1
+print(bal)
+print(success)
+print(failed)
